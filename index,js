@@ -1,0 +1,42 @@
+const Discord = require("discord.js");
+const client = new Discord.Client();
+const config = require("./config.json");
+
+client.on("ready", () => {
+  console.log("I am ready!");
+});
+
+const prefix = "!";
+const skum = []
+client.on("message", (message) => {
+    const roleL = message.member.guild.roles.find("name", "Loli Lewder");
+    var double = "";
+    const newID = message.author.id
+    const check = skum.includes(newID)
+    if (message.author.bot) return;
+    if (message.content.startsWith(prefix + "help")){
+        if(check !== true){
+            message.channel.send("I am part of the Lolicops, I have come to stop any loli lewding")
+        } else
+        message.channel.send("I don't talk to crimminal skum like you")
+    }
+    //console.log(message.content)
+    //console.log(message.content.replace("lolicop", ""))
+
+    if (message.content.includes("lolicop")) {
+        double = message.content.replace("lolicop", "")
+        console.log(double)
+    } else{
+        double = message.content
+    }
+  if (double.includes("loli")) {
+    message.channel.send("THIS IS THE POLICE GET DOWN ON THE GROUND NOW!")
+    message.channel.send("You're under arrest for suspected criminal activities.")
+    skum.push(newID);
+    var userID = message.author.id
+    message.member.addRole(roleL)
+    message.member.setNickname("Loli Lewder")
+    }
+});
+
+client.login(config.token);
